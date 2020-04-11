@@ -1,4 +1,4 @@
-#!/home/magnum/Projects/sockets/venv/bin/python
+#!venv/bin/python
 
 import os
 import socket
@@ -221,7 +221,7 @@ def server(config):
             filepath = secrets.token_hex(config['slug_size'])
             filepath = filepath[:config['slug_size']]
             clientSocket.sendall(
-                bytes(config['base_url']+filepath, "utf-8"))
+                bytes(config['base_url']+filepath+"\n", "utf-8"))
             clientSocket.shutdown(socket.SHUT_WR)
 
             full_message = ""
@@ -235,7 +235,7 @@ def server(config):
             with open(os.path.join(config['output_directory'], filepath), 'w') as writer:
                 writer.write(full_message)
 
-            with open(os.path.join(config['output_directory'], filepath + "_color.html"), 'w') as writer:
+            with open(os.path.join(config['output_directory'], filepath + "_color"), 'w') as writer:
                 received_code = full_message
                 try:
                     from pygments.formatters.html import HtmlFormatter
