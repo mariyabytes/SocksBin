@@ -46,12 +46,12 @@ def main(theargs):
     Released under GNU GPL.
 
     -n --hostname\tSet the hostname to listen for. 0.0.0.0 by default.
-    -p --port\tExternel port number to listen on. 8888 by default
+    -p --port\t\tExternel port number to listen on. 8888 by default
     -q --queue_depth\tMax number of simultaneous connections to accept
-    -o --output_directory\tFile storage location. $HOME/socksbin by default
+    -o --output_directory File storage location. $HOME/socksbin by default
     -s --slug_size\tLength of url to generate.
     -b --buffer_size\tPacket size in bytes. 
-    -l --log_file\t\tPath to log file.
+    -l --log_file\tPath to log file.
     -h --help\t\tDisplay this message
     -u --url\t\tSpecify the url to append to when giving the link to the user.
     """
