@@ -262,7 +262,7 @@ After=multi-user.target
 
 [Service]
 Type=idle
-ExecStart=/home/user/socksbin/venv/bin/python /home/user/socksbin/paster.py -o /var/www/socksbin -s 8 -p 6969 -l /home/phallus/socklog.txt -u https://subdomain.yourdomain.com/
+ExecStart=/home/user/socksbin/venv/bin/python /home/user/socksbin/paster.py -o /var/www/socksbin -s 8 -p 6969 -l /home/user/socklog.txt -u https://subdomain.yourdomain.com/
 
 [Install]
 WantedBy=multi-user.target
