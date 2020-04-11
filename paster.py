@@ -39,7 +39,7 @@ def main(theargs):
     log_file = "/tmp/socklog.txt"
 
     # base url where the file will be served to the user
-    base_url = "localhost"
+    base_url = "http://localhost/"
 
     helpmessage = """
     Welcome to SocksBin, the command line pastebin !
