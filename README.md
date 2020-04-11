@@ -334,8 +334,3 @@ server {
 **Please make sure that you put default file, e.g. index.html, so that people can't access all your files freely.**
 
 __________________________________________________________________
-
-I'm new at this, any changes will be absolutely welcome. Thank you for reading this !
-
-
-
