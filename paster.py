@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/home/magnum/Projects/sockets/venv/bin/python
 
 import os
 import socket
@@ -6,9 +6,11 @@ import secrets
 import sys
 import getopt
 import re
-
+from time import gmtime, strftime
 
 # Config
+
+
 def main(theargs):
     # where to serve this page.
     # 127.0.0.1 / localhost => only accessible locally, on this machine
@@ -213,24 +215,54 @@ def server(config):
     s.listen(config['queue_depth'])
 
     while True:
-        clientSocket, address = s.accept()
-        print(f"Connection from {address} has been established")
-        filepath = secrets.token_hex(8)
-        clientSocket.sendall(
-            bytes(config['base_url']+filepath, "utf-8"))
-        clientSocket.shutdown(socket.SHUT_WR)
+        try:
+            clientSocket, address = s.accept()
+            print(f"Connection from {address} has been established")
+            filepath = secrets.token_hex(config['slug_size'])
+            filepath = filepath[:config['slug_size']]
+            clientSocket.sendall(
+                bytes(config['base_url']+filepath, "utf-8"))
+            clientSocket.shutdown(socket.SHUT_WR)
 
-        full_message = ""
-        while True:
-            data = clientSocket.recv(config['buffer_size'])
-            if len(data) <= 0:
+            full_message = ""
+            while True:
+                data = clientSocket.recv(config['buffer_size'])
+                if len(data) <= 0:
 
-                break
-            print("ingesting")
-            full_message += data.decode('utf-8')
+                    break
+                full_message += data.decode('utf-8')
 
-        with open(os.path.join(config['output_directory'], filepath), 'w') as writer:
-            writer.write(full_message)
+            with open(os.path.join(config['output_directory'], filepath), 'w') as writer:
+                writer.write(full_message)
+
+            with open(os.path.join(config['output_directory'], filepath + "_color.html"), 'w') as writer:
+                received_code = full_message
+                try:
+                    from pygments.formatters.html import HtmlFormatter
+                    from pygments import highlight
+                    from pygments.lexers import guess_lexer
+                    lexer = guess_lexer(received_code)
+                    fmter = HtmlFormatter(
+                        noclasses=True, style="colorful", linenos=True)
+
+                    result = highlight(received_code, lexer, fmter)
+
+                    writer.write(result)
+                except Exception as e:
+                    print("unable to format")
+                    print(e)
+                if config['log']:
+                    showtime = strftime("%Y-%m-%d %H:%M:%S", gmtime())
+                    with open(config['log_file'], 'a') as logFile:
+                        logFile.write(f"Time: {showtime}\t")
+                        logFile.write(f"Address: {address} \t")
+                        logFile.write(f"file: {filepath} \n")
+        except Exception as e:
+            if config['log']:
+                with open(config['log_file']+"_e.txt", 'a') as logFile:
+                    logFile.write(f"# Address: {address}\t")
+                    logFile.write(f"message: {full_message}\t")
+                    logFile.write(f"Error: {e}")
 
 
 def isWritable(directory):
@@ -250,17 +282,6 @@ def isWritable(directory):
     except Exception as e:
         return False
 
-def printTable(myDict, colList=None):
-   """ Pretty print a list of dictionaries (myDict) as a dynamically sized table.
-   If column names (colList) aren't specified, they will show in random order.
-   Author: Thierry Husson - Use it as you want but don't blame me.
-   """
-   if not colList: colList = list(myDict[0].keys() if myDict else [])
-   myList = [colList] # 1st row = header
-   for item in myDict: myList.append([str(item[col] if item[col] is not None else '') for col in colList])
-   colSize = [max(map(len,col)) for col in zip(*myList)]
-   formatStr = ' | '.join(["{{:<{}}}".format(i) for i in colSize])
-   myList.insert(1, ['-' * i for i in colSize]) # Seperating line
-   for item in myList: print(formatStr.format(*item))
+
 if __name__ == "__main__":
     main(sys.argv[1:])
