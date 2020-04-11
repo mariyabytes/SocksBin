@@ -221,7 +221,7 @@ __Default value:__ 32768
 #### Log file `-l` `--log_file`
 
 ```
-./patser.py -l /home/user/socksbin.log.txt
+./paster.py -l /home/user/socksbin.log.txt
 ```
 
 The log file will only be made if you specify this argument. Make sure that this file is user writable.
@@ -234,7 +234,7 @@ __Default value:__ not set
 #### Queue Depth `-q` `--queue_depth`
 
 ```
-./patser.py -q 10
+./paster.py -q 10
 ```
 
 The helps to properly manage simultaneous connections. The maximum value is system dependent. For example, on Linux, see /proc/sys/net/core/somaxconn
