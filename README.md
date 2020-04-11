@@ -243,7 +243,99 @@ __Default value:__ 10
 
 ------------------------------------------------------------------------------
 
+### Running as a service
 
+If you're using systemd, follow these steps:
+
+* Create the service file
+
+```
+sudo touch /lib/systemd/system/socksbin.service
+```
+
+* Add the following code to the file
+
+```
+[Unit]
+Description=Socksbin Server
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/home/user/socksbin/venv/bin/python /home/user/socksbin/paster.py -o /var/www/socksbin -s 8 -p 6969 -l /home/phallus/socklog.txt -u https://subdomain.yourdomain.com/
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Replace */home/user/socksbin* with the path to your socksbin installation. Save and exit.
+
+* Set appropriate permissions
+
+```
+sudo chmod 644 /lib/systemd/system/socksbin.service
+```
+
+* Restart the systemd daemon, and enable your service
+
+```
+sudo systemctl daemon-reload
+sudo systemctl start socksbin
+sudo systemctl enable socksbin
+```
+
+This will make sure it remains up even accross reboots.
+
+To check the current status of your service:
+
+```
+sudo systemctl status socksbin
+```
+
+---------------------------------------------------------------------
+
+
+
+## Example Server Configs
+
+This does not have a web server built in, so you can use this with your existing web server, to make files available to the internet.
+
+* Example apache config
+
+```
+<VirtualHost *:80>
+        ServerName subdomain.mysite.com
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/socksbin
+        DirectoryIndex index.html
+
+        ErrorLog ${APACHE_LOG_DIR}/socksbin_error.log
+        CustomLog ${APACHE_LOG_DIR}/socksbin_access.log combined
+
+</VirtualHost>
+```
+
+* Example nginx config
+
+
+```
+server {
+    listen 80;
+    server_name subdomain.mysite.com;
+    charset utf-8;
+
+    location / {
+            root /var/www/socksbin/;
+            index index.txt index.html;
+    }
+}
+```
+
+**Please make sure that you put default file, e.g. index.html, so that people can't access all your files freely.**
+
+__________________________________________________________________
+
+I'm new at this, any changes will be absolutely welcome. Thank you for reading this !
 
 
 
