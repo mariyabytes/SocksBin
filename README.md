@@ -3,7 +3,7 @@ SocksBin
 
 Command line pastebin for sharing files and command outputs.
 
-[https://socksbin.magnum.wtf]
+https://socksbin.magnum.wtf
 
 # How to use
 
