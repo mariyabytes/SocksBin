@@ -76,21 +76,21 @@ echo 'alias skb="nc magnum.wtf 9999"' >> .bash_profile
 
 __Linux (Bash):__
 ```
-echo 'alias tbc="netcat termbin.com 9999 | xclip -selection c"' >> .bashrc
+echo 'alias skb="netcat magnum.wtf 6969 | xclip -selection c"' >> .bashrc
 ```
 
 ```
-echo less typing now! | tbc
+echo less typing now! | skb
 ```
 
 __macOS:__
 
 ```
-echo 'alias tbc="nc termbin.com 9999 | pbcopy"' >> .bash_profile
+echo 'alias skb="nc magnum.wtf 6969 | pbcopy"' >> .bash_profile
 ```
 
 ```
-echo less typing now! | tbc
+echo less typing now! | skb
 ```
 
 __Remember__ to reload the shell with `source ~/.bashrc` or `source ~/.bash_profile` after adding any of provided above!
