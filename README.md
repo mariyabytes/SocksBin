@@ -166,7 +166,7 @@ __Default value:__ `$HOME/socksbin`
 
 -------------------------------------------------------------------------------
 
-#### URL `-u``--url`
+#### URL `-u` `--url`
 
 This will be used as a prefix for an url received by the client.
 Value will be prepended with `$url`.
@@ -187,7 +187,7 @@ __Default value:__ `http://localhost/`
 
 -------------------------------------------------------------------------------
 
-#### Slug size `-s``--slug_size`
+#### Slug size `-s` `--slug_size`
 
 This will force slugs to be of required length:
 
@@ -206,7 +206,7 @@ __Default value:__ 8
 
 -------------------------------------------------------------------------------
 
-#### Buffer size `-b``--buffer_size`
+#### Buffer size `-b` `--buffer_size`
 
 This parameter defines size of the buffer in bytes, when making a connection.
 TCP has a max buffer size of 60K.
@@ -218,7 +218,7 @@ __Default value:__ 32768
 
 -------------------------------------------------------------------------------
 
-#### Log file `-l`
+#### Log file `-l` `--log_file`
 
 ```
 ./patser.py -l /home/user/socksbin.log.txt
@@ -231,7 +231,7 @@ __Default value:__ not set
 
 -------------------------------------------------------------------------------
 
-#### Queue Depth `-q``--queue_depth`
+#### Queue Depth `-q` `--queue_depth`
 
 ```
 ./patser.py -q 10
@@ -242,6 +242,7 @@ The helps to properly manage simultaneous connections. The maximum value is syst
 __Default value:__ 10
 
 ------------------------------------------------------------------------------
+
 
 
 
