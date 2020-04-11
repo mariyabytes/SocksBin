@@ -53,6 +53,7 @@ def main(theargs):
     -b --buffer_size\tPacket size in bytes. 
     -l --log_file\t\tPath to log file.
     -h --help\t\tDisplay this message
+    -u --url\t\tSpecify the url to append to when giving the link to the user.
     """
     try:
         if theargs[0] == "-h" or theargs[0] == "--help":
