@@ -98,4 +98,151 @@ __Remember__ to reload the shell with `source ~/.bashrc` or `source ~/.bash_prof
 -------------------------------------------------------------------------------
 
 
+# Server Side 
+
+## Configration
+
+* Clone
+
+```
+git clone https://github.com/MagnumDingusEdu/SocksBin.git
+```
+
+* Set up virtual environment
+
+```
+python3 -m venv venv
+
+# or 
+
+virtualenv venv
+```
+
+* Install required packages
+
+```
+source venv/bin/activate
+pip intall -r requirements.txt
+```
+
+* Make the script executable
+
+```
+chmod +x paster.py
+```
+
+_____________________________________________
+
+# Usage
+
+```
+usage: ./paster.py [-o output directory]
+                   [-n listen_address] [-p port] [-s slug size]
+                   [-l logfile] [-b buffer size][-h help]
+```
+
+These are command line arguments. None of these are required to run the server. Defaults are specified in the section below.
+
+_____________________________________________
+
+
+### Settings
+
+-------------------------------------------------------------------------------
+
+#### Output directory `-o` `--output_directory`
+
+Absolute, or relative path to the directory where the pastes will be stored, as plaintext files.
+
+```
+./paster.py -o ./pastes
+```
+
+```
+./paster.py -o /home/www/pastes/
+```
+
+__Default value:__ `$HOME/socksbin`
+
+-------------------------------------------------------------------------------
+
+#### URL `-u``--url`
+
+This will be used as a prefix for an url received by the client.
+Value will be prepended with `$url`.
+
+```
+./paster.py -u https://domain.com/
+```
+
+```
+./paster.py -u https://subdomain.domain.com/
+```
+
+```
+./paster.py -u https://subdomain.domain.com/pastes/
+```
+
+__Default value:__ `http://localhost/`
+
+-------------------------------------------------------------------------------
+
+#### Slug size `-s``--slug_size`
+
+This will force slugs to be of required length:
+
+```
+./paster.py -s 6
+```
+
+__Output url with default value__: `http://localhost/********`,
+where * is a randomized character
+
+__Output url with example value 6__: `http://localhost/******`,
+where * is a randomized character
+
+__Default value:__ 8
+
+
+-------------------------------------------------------------------------------
+
+#### Buffer size `-b``--buffer_size`
+
+This parameter defines size of the buffer in bytes, when making a connection.
+TCP has a max buffer size of 60K.
+```
+./paster.py -b 4096
+```
+
+__Default value:__ 32768
+
+-------------------------------------------------------------------------------
+
+#### Log file `-l`
+
+```
+./patser.py -l /home/user/socksbin.log.txt
+```
+
+The log file will only be made if you specify this argument. Make sure that this file is user writable.
+
+__Default value:__ not set
+
+
+-------------------------------------------------------------------------------
+
+#### Queue Depth `-q``--queue_depth`
+
+```
+./patser.py -q 10
+```
+
+The helps to properly manage simultaneous connections. The maximum value is system dependent. For example, on Linux, see /proc/sys/net/core/somaxconn
+
+__Default value:__ 10
+
+------------------------------------------------------------------------------
+
+
+
 
