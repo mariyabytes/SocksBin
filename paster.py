@@ -1,4 +1,6 @@
-#!/home/magnum/Projects/sockets/venv/bin/python
+#!/
+
+# replace the above line with the path to your virtual environment. 
 
 import os
 import socket
@@ -258,6 +260,7 @@ def server(config):
                         logFile.write(f"Address: {address} \t")
                         logFile.write(f"file: {filepath} \n")
         except Exception as e:
+            print(e)
             if config['log']:
                 with open(config['log_file']+"_e.txt", 'a') as logFile:
                     logFile.write(f"# Address: {address}\t")
