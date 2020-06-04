@@ -1,6 +1,5 @@
-#!/
-
-# replace the above line with the path to your virtual environment. 
+#!venv/bin/python
+# replace the above line with the path to your virtual environment.
 
 import os
 import socket
@@ -41,20 +40,21 @@ def main(theargs):
     log_file = "/tmp/socklog.txt"
 
     # base url where the file will be served to the user
-    base_url = "https://socksbin.magnum.wtf/"
+    base_url = "http://localhost/"
 
     helpmessage = """
     Welcome to SocksBin, the command line pastebin !
     Released under GNU GPL.
 
     -n --hostname\tSet the hostname to listen for. 0.0.0.0 by default.
-    -p --port\tExternel port number to listen on. 8888 by default
+    -p --port\t\tExternel port number to listen on. 8888 by default
     -q --queue_depth\tMax number of simultaneous connections to accept
-    -o --output_directory\tFile storage location. $HOME/socksbin by default
+    -o --output_directory File storage location. $HOME/socksbin by default
     -s --slug_size\tLength of url to generate.
-    -b --buffer_size\tPacket size in bytes. 
-    -l --log_file\t\tPath to log file.
+    -b --buffer_size\tPacket size in bytes.
+    -l --log_file\tPath to log file.
     -h --help\t\tDisplay this message
+    -u --url\t\tSpecify the url to append to when giving the link to the user.
     """
     try:
         if theargs[0] == "-h" or theargs[0] == "--help":
@@ -223,7 +223,7 @@ def server(config):
             filepath = secrets.token_hex(config['slug_size'])
             filepath = filepath[:config['slug_size']]
             clientSocket.sendall(
-                bytes(config['base_url']+filepath, "utf-8"))
+                bytes(config['base_url']+filepath+"\n", "utf-8"))
             clientSocket.shutdown(socket.SHUT_WR)
 
             full_message = ""
@@ -237,7 +237,7 @@ def server(config):
             with open(os.path.join(config['output_directory'], filepath), 'w') as writer:
                 writer.write(full_message)
 
-            with open(os.path.join(config['output_directory'], filepath + "_color.html"), 'w') as writer:
+            with open(os.path.join(config['output_directory'], filepath + "_color"), 'w') as writer:
                 received_code = full_message
                 try:
                     from pygments.formatters.html import HtmlFormatter
