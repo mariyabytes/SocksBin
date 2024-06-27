@@ -15,11 +15,11 @@ _________
 
 
 ```
-echo "Hello World !" | nc magnum.wtf 6969
+echo "Hello World !" | nc domain.com 6969
 ```
 
 ```
-cat "script.sh" | nc magnum.wtf 6969
+cat "script.sh" | nc domain.com 6969
 ```
 
 * In case you started the server on localhost
@@ -34,13 +34,13 @@ ____
 You will receive a url to the text-only paste as a response to the above commands. e.g.
 
 ```
-https://socksbin.magnum.wtf/33fdd867
+https://socksbin.domain.com/33fdd867
 ```
 
 This has a built-in Pygment-based beautifier. add "_color" to the end of the received url, to get a beautified paste.
 
 ```
-https://socksbin.magnum.wtf/33fdd867_color
+https://socksbin.domain.com/33fdd867_color
 ```
 
 <sup>In case your text isn't beautified, include the *shebang* `#!` which is the first two bytes of an executable</sup>
@@ -60,14 +60,14 @@ Make this much easier to use by adding an alias to your rc file. For example:
 __Linux (Bash):__
 
 ```
-echo 'alias skb="nc magnum.wtf 6969"' >> .bashrc
+echo 'alias skb="nc domain.com 6969"' >> .bashrc
 ```
 
 
 __macOS:__
 
 ```
-echo 'alias skb="nc magnum.wtf 9999"' >> .bash_profile
+echo 'alias skb="nc domain.com 9999"' >> .bash_profile
 ```
 
 -------------------------------------------------------------------------------
@@ -76,7 +76,7 @@ echo 'alias skb="nc magnum.wtf 9999"' >> .bash_profile
 
 __Linux (Bash):__
 ```
-echo 'alias skb="netcat magnum.wtf 6969 | xclip -selection c"' >> .bashrc
+echo 'alias skb="netcat domain.com 6969 | xclip -selection c"' >> .bashrc
 ```
 
 ```
@@ -86,7 +86,7 @@ echo less typing now! | skb
 __macOS:__
 
 ```
-echo 'alias skb="nc magnum.wtf 6969 | pbcopy"' >> .bash_profile
+echo 'alias skb="nc domain.com 6969 | pbcopy"' >> .bash_profile
 ```
 
 ```
